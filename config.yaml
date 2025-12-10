@@ -1,0 +1,17 @@
+sanctions_sources:
+  un_consolidated:
+    url: "https://scsanctions.un.org/resources/xml/en/consolidated.xml"
+    type: "xml"
+    enabled: true
+  
+matching:
+  threshold: 75
+  algorithm: "token_sort_ratio"
+  
+input:
+  companies_file: "data/sample_companies.csv"
+  
+output:
+  report_format: "html"
+  report_dir: "outputs/reports"
+  log_level: "INFO"
