@@ -36,21 +36,21 @@
 ## Installation
 
 1. Clone the repository:
-
-    bash
-    git clone <https://github.com/tomszy91/sanctions-screening.git>
-    cd sanctions-screening
+```bash
+git clone https://github.com/tomszy91/sanctions-screening.git
+cd sanctions-screening
+```
 
 2. Create virtual environment:
-
-    bash
-    python -m venv venv
-    source venv/bin/activate  # Windows: venv\Scripts\activate
+```bash
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+```
 
 3. Install dependencies:
-
-    bash
-    pip install -r requirements.txt
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 
