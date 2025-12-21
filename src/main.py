@@ -9,8 +9,8 @@ import pandas as pd
 from pathlib import Path
 from datetime import datetime
 
-from src.data_loader import SanctionsLoader
-from src.matcher import SanctionsMatcher
+from data_loader import SanctionsLoader
+from matcher import SanctionsMatcher
 
 logging.basicConfig(
     level=logging.INFO,
