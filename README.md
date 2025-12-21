@@ -51,18 +51,18 @@ pip install -r requirements.txt
 
 1. Prepare your companies CSV file in `data/sample_companies.csv`:
 
-```csv
-company_id,company_name,country
-1,Example Corp,USA
-2,Test Trading Ltd,UK
-3,Hanifa Money Exchange,AFG
-```
+    ```csv
+    company_id,company_name,country
+    1,Example Corp,USA
+    2,Test Trading Ltd,UK
+    3,Hanifa Money Exchange,AFG
+    ```
 
 2. Run the screening:
 
-```bash
-python src/main.py
-```
+    ```bash
+    python src/main.py
+    ```
 
 3. Check results in `outputs/reports/screening_results_TIMESTAMP.csv`
 
