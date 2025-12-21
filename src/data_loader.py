@@ -1,5 +1,4 @@
 '''
-Docstring for src.data_loader
 Module for downloading and loading sanctions lists from external sources
 '''
 
@@ -14,7 +13,6 @@ logger = logging.getLogger(__name__)
 
 class SanctionsLoader:
     '''
-    Docstring for sanctions_loader
     Downloads and parses sanctions list from configured sources
     '''
     def __init__(self, config):
@@ -30,7 +28,6 @@ class SanctionsLoader:
         
     def download_un_list(self, url):
         '''
-        Docstring for download_un_list
         Download UN sanctions list XML from given URL
         Args:
             url (str): URL to UN XML sanctions list
@@ -52,6 +49,30 @@ class SanctionsLoader:
         except requests.exceptions.RequestException as e:
             logger.error(f'Failed to download UN sanctions list: {e}')
             raise
+        
+    def download_eu_list(self, url):
+        '''
+        Download Consolidated EU sanctions list XML from given URL
+        Args:
+            url (str): URL to EU XML sanctions list
+        Returns:
+            str: path to downloaded file
+        '''
+        logger.info(f"Downloading EU sanctions list from {url}")
+        
+        try:
+            response = requests.get(url, timeout=30)
+            response.raise_for_status()
+            
+            file_path = self.data_dir / 'eu_consolidated.xml'
+            file_path.write_bytes(response.content)
+            
+            logger.info(f'Downloaded EU sanctions list to {file_path}')
+            return str(file_path)
+        
+        except requests.exceptions.RequestException as e:
+            logger.error(f'Failed to download EU sanctions list: {e}')
+            raise        
         
     def parse_un_xml(self, xml_path):
         '''
@@ -113,6 +134,47 @@ class SanctionsLoader:
         
         return df
     
+    
+    def parse_eu_xml(self, xml_path):
+        '''
+        Parse EU XML sanctions list into a DataFrame
+        Args:
+            xml_path (str): Path to the EU sanctions list XML file
+        Returns:
+            pd.DataFrame: DataFrame containing parsed sanctions data
+        '''
+        logger.info(f'Parsing EU sanctions list from {xml_path}')
+        
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+        
+
+        name_space = {'eu' : 'http://eu.europa.ec/fpi/fsd/export'}
+        
+        entities = []
+        # EU XML structure has sanctionEntity elements
+        for entity in root.findall('eu:sanctionEntity', name_space):
+            # Get sanctionEntity type
+            subject_type = entity.findtext('eu:subjectType/eu:code', default='', namespaces=name_space).lower()
+            
+            # Get all aliases
+            for name_alias in entity.findall('eu:nameAlias', name_space):
+                whole_name = name_alias.get('wholeName', '').strip()
+
+                if whole_name:
+                    entities.append({
+                        'name': whole_name,
+                        'reference_number': entity.get('euReferenceNumber',''),
+                        'list_type': "EU Consolidated List",
+                        'source': "EU",
+                        'type': "ENTITY" if subject_type == 'enterprise' else 'INDIVIDUAL'
+                    })
+            
+        df = pd.DataFrame(entities)
+        logger.info(f'Parsed {len(df)} entities from EU Consolidated list')
+        
+        return df
+    
     def load_all_lists(self):
         '''
         Docstring for load_all_lists
@@ -134,11 +196,16 @@ class SanctionsLoader:
                 df = self.parse_un_xml(xml_path)
                 all_sanctions.append(df)
                 
+            if source_name == 'eu_consolidated':
+                xml_path = self.download_eu_list(source_config['url'])
+                df = self.parse_eu_xml(xml_path)
+                all_sanctions.append(df)
+                
         if not all_sanctions:
             logger.warning('No sanctions lists loaded')
             return pd.DataFrame()
         
         combined = pd.concat(all_sanctions, ignore_index=True)
-        logger.info(f'Total sanctions entities loaded: {len(combined)}')
-                       
+        logger.info(f'Total sanctions entities loaded: {len(combined)}')           
+        
         return combined

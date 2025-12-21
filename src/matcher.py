@@ -4,7 +4,7 @@ Fuzzy matching logic for comparing company names against sanctions list
 '''
 
 import pandas as pd
-from rapidfuzz import fuzz, process
+from rapidfuzz import fuzz
 import logging
 
 logger = logging.getLogger(__name__)
@@ -131,18 +131,12 @@ class SanctionsMatcher:
         Returns:
             pd.DataFrame: Results with matches
         '''
-        # Note: We match against both ENTITY and INDIVIDUAL types
-        # Reason: A company may be owned/controlled by a sanctioned individual
-        # This increases false positives but reduces compliance risk
-    
-        # if 'type' in sanctions_df.columns:
-        #     entity_sanctions = sanctions_df[sanctions_df['type'] == 'ENTITY'].copy()
-        #     logger.info(f'Filtered to {len(entity_sanctions)} sanctioned entities from {len(sanctions_df)} total')
-        # else:
-        #     entity_sanctions = sanctions_df
-        #     logger.warning("'type' column not found in sanctions data")
+        entity_sanctions = sanctions_df[sanctions_df['type'] == 'ENTITY'].copy()
         
-        logger.info(f'Matching {len(companies_df)} companies against {len(sanctions_df)} sanctioned entities')
+        if entity_sanctions.empty:
+            logger.warning('No ENTITY records available for matching')  
+        
+        logger.info(f'Matching {len(companies_df)} companies against {len(entity_sanctions)} sanctioned entities')
 
         results = []
         
@@ -151,9 +145,9 @@ class SanctionsMatcher:
             company_name = company.get('company_name', '')
             country = company.get('country', '')
             
-            logger.info(f'Checking company: {company_name}')
+            logger.debug(f'Checking company: {company_name}')
             
-            matches = self.match_single_company(company_name, sanctions_df)
+            matches = self.match_single_company(company_name, entity_sanctions)
             
             if matches:
                 logger.warning(f'POTENTIAL MATCH FOUND for {company_name}: {len(matches)} matches')
