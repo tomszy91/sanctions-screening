@@ -1,40 +1,40 @@
 # Automated Sanctions Screening System
 
-    [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
-    [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-    A Python-based system for automated screening of companies against international sanctions lists using fuzzy string matching.
+A Python-based system for automated screening of companies against international sanctions lists using fuzzy string matching.
 
 ## Features
 
-    - Downloads and parses sanctions lists from UN consolidated XML
-    - Fuzzy matching algorithm to detect similar company names
-    - Distinguishes between sanctioned entities (companies) and individuals
-    - Handles multiple name aliases and variations
-    - Generates detailed CSV reports with match scores
-    - Configurable matching threshold and algorithms
+- Downloads and parses sanctions lists from UN consolidated XML
+- Fuzzy matching algorithm to detect similar company names
+- Distinguishes between sanctioned entities (companies) and individuals
+- Handles multiple name aliases and variations
+- Generates detailed CSV reports with match scores
+- Configurable matching threshold and algorithms
 
 ## Technical Stack
 
-    - **Python 3.12+**
-    - **pandas** - Data processing
-    - **rapidfuzz** - Fuzzy string matching
-    - **requests** - API calls
-    - **pyyaml** - Configuration management
+- **Python 3.12+**
+- **pandas** - Data processing
+- **rapidfuzz** - Fuzzy string matching
+- **requests** - API calls
+- **pyyaml** - Configuration management
 
 ## Project Structure
 
-    sanctions-screening/
-    ├── config.yaml              # Configuration file
-    ├── requirements.txt         # Python dependencies
-    ├── data/
-    │   └── sample_companies.csv # Sample input data
-    ├── src/
-    │   ├── data_loader.py      # Downloads and parses sanctions lists
-    │   ├── matcher.py          # Fuzzy matching logic
-    │   └── main.py             # Main orchestration script
-    └── outputs/
-        └── reports/            # Generated screening results
+sanctions-screening/
+├── config.yaml              # Configuration file
+├── requirements.txt         # Python dependencies
+├── data/
+│   └── sample_companies.csv # Sample input data
+├── src/
+│   ├── data_loader.py      # Downloads and parses sanctions lists
+│   ├── matcher.py          # Fuzzy matching logic
+│   └── main.py             # Main orchestration script
+└── outputs/
+    └── reports/            # Generated screening results
 
 ## Installation
 
