@@ -25,6 +25,7 @@ A Python-based system for automated screening of companies against international
 
 ## Project Structure
 
+```bash
 sanctions-screening/
 ├── config.yaml                 # Configuration file
 ├── requirements.txt            # Python dependencies
@@ -36,6 +37,7 @@ sanctions-screening/
 │   └── main.py                 # Main orchestration script
 └── outputs/
     └── reports/                # Generated screening results
+```
 
 ## Installation
 
