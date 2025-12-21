@@ -24,5 +24,8 @@ outputs/
 .DS_Store
 Thumbs.db
 
+# Other
+*.code-workspace
+
 # Logs
 *.log

@@ -1,5 +1,8 @@
 # Automated Sanctions Screening System
 
+    [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
+    [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
     A Python-based system for automated screening of companies against international sanctions lists using fuzzy string matching.
 
 ## Features
