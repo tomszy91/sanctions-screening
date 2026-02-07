@@ -111,10 +111,12 @@ Edit `config.yaml` to customize:
 
 ## Example Output
 
+```csv
 Total companies screened: 10
 Companies with potential matches: 6
 Total match records (including aliases): 19
 Clean companies: 4
+```
 
 ```csv
 POTENTIAL MATCHES:
