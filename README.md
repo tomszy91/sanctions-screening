@@ -116,10 +116,12 @@ Companies with potential matches: 6
 Total match records (including aliases): 19
 Clean companies: 4
 
-POTENTIAL MATCHES:
-company_name              sanctions_name           match_score  reference_number
-Hanifa Money Exchange     Hanifa Money Exchange    100.0        QDe.153
-Roshan Trading Company    Roshan Trading Company   100.0        TAe.011
+    ```csv
+    POTENTIAL MATCHES:
+    company_name              sanctions_name           match_score  reference_number
+    Hanifa Money Exchange     Hanifa Money Exchange    100.0        QDe.153
+    Roshan Trading Company    Roshan Trading Company   100.0        TAe.011
+    ```
 
 ## Limitations
 
