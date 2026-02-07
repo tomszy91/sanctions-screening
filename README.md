@@ -111,14 +111,14 @@ Edit `config.yaml` to customize:
 
 ## Example Output
 
-```csv
+```bash
 Total companies screened: 10
 Companies with potential matches: 6
 Total match records (including aliases): 19
 Clean companies: 4
 ```
 
-```csv
+```bash
 POTENTIAL MATCHES:
 company_name              sanctions_name           match_score  reference_number
 Hanifa Money Exchange     Hanifa Money Exchange    100.0        QDe.153
